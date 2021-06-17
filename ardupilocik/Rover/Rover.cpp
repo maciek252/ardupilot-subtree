@@ -231,6 +231,11 @@ void Rover::ahrs_update()
 {
     arming.update_soft_armed();
 
+#if HIL_MODE != HIL_MODE_DISABLED
+    // update hil before AHRS update
+    gcs().update();
+#endif
+
     // AHRS may use movement to calculate heading
     update_ahrs_flyforward();
 
