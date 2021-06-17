@@ -61,9 +61,8 @@ void SCurve::calculate_track(const Vector3f &origin, const Vector3f &destination
 {
     init();
 
-    // leave track as zero length if origin and destination are equal or if the new track length squared is zero
-    const Vector3f track_temp = destination - origin;
-    if (track_temp.is_zero() || is_zero(track_temp.length_squared())) {
+    // leave track as zero length if origin and destination are the same
+    if (origin == destination) {
         return;
     }
 
@@ -85,7 +84,7 @@ void SCurve::calculate_track(const Vector3f &origin, const Vector3f &destination
         return;
     }
 
-    track = track_temp;
+    track = destination - origin;
     const float track_length = track.length();
     if (is_zero(track_length)) {
         // avoid possible divide by zero
